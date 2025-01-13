@@ -39,12 +39,13 @@ https://docs.google.com/document/d/1ooIWGVt1z2ep9oW6uYpbnLjC3UoshCzuDN0YrBzbF_g/
 ----------------------------------
 Contributors
 ----------------------------------
+
 Patrick Little
 Github profile link: https://github.com/little-Patrick
--
+
 Rig Freyr
 Github profile link: https://github.com/ontruster74
--
+
 Logan Sauer
 Github profile link: https://github.com/ldsauer
 
