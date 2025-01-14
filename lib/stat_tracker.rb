@@ -1,46 +1,34 @@
-require 'csv'
-
 class StatTracker
+  @@games = []
+  @@teams = []
+  @@game_teams = []
+
+  def self.games 
+    return @@games
+  end
+
+  def self.teams
+    return @@teams
+  end
+
+  def self.game_teams
+    return @@game_teams
+  end
 
   def self.from_csv(filepaths_hash)
     CSV.foreach(filepaths_hash[:games], headers: true, header_converters: :symbol) do |row|
-      home_team_id = row[:home_team_id]
-      away_goals  = row[:away_goals].to_i
-      home_goals = row[:home_goals].to_i
-      venue = row[:venue]
-      venue_link = row[:venue_link]
-
-      @game = Game.new()
+      @@games << Game.new(row[:home_team_id], row[:away_goals].to_i, row[:home_goals].to_i, row[:venue], row[:venue_link])
     end
 
     CSV.foreach(filepaths_hash[:teams], headers: true, header_converters: :symbol) do |row|
-      team_id = row[:team_id]
-      franchiseId = row[:franchiseId]
-      teamName = row[:teamName]
-      abbreviation = row[:abbreviation]
-      stadium = row[:stadium]
-      link = row[:link]
-
-      @team = Team.new()
+      @@teams << Team.new(row[:team_id], row[:franchiseId], row[:teamName], row[:abbreviation], row[:stadium], row[:link])
     end
 
     CSV.foreach(filepaths_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
-      game_id = row[:game_id]
-      game_team_id = row[:team_id]
-      hoa = row[:hoa]
-      result = row[:result]
-      head_coach = row[:head_coach]
-      goals = row[:goals].to_i
-      shots = row[:shots].to_i
-      tackles = row[:tackles].to_i
-      pim = row[:pim].to_i
-      powerPlayOpportunities = row[:powerPlayOpportunities].to_i
-      faceOffWinPercentage = row[:faceOffWinPercentage].to_i
-      giveaways = row[:giveaways].to_i
-      takeaways = row[:takeaways].to_i  
-
-      @game_team = GameTeam.new()
+      @@game_teams << GameTeam.new(row[:game_id], row[:team_id], row[:hoa], row[:result], row[:head_coach], row[:goals].to_i, row[:shots].to_i, row[:tackles].to_i, row[:pim].to_i, row[:powerPlayOpportunities].to_i, row[:faceOffWinPercentage].to_i, row[:giveaways].to_i, row[:takeaways].to_i) 
     end 
+
+    return [@@games[1], @@teams[1], @@game_teams[1]]
   end
 
   # Game Statistics

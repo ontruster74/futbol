@@ -1,5 +1,8 @@
 # runner.rb
-require_relative 'lib/stat_tracker'
+require './lib/stat_tracker'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
 require 'csv'
 
 game_path = './data/simple_games.csv'
