@@ -1,8 +1,6 @@
 require 'csv'
 
 class StatTracker
-  attr_reader :games, :teams, :game_teams
-
   def self.from_csv(filepaths_hash)
     @games = CSV.foreach(filepaths_hash[:games], headers: true, header_converters: :symbol) do |row|
       home_team_id = row[:home_team_id]
