@@ -1,11 +1,41 @@
 require 'csv'
 
 class StatTracker
-  
+  attr_reader :games, :teams, :game_teams
+
   def self.from_csv(filepaths_hash)
-    @games = filepaths_hash[:games]
-    @teams = filepaths_hash[:teams]
-    @game_teams = filepaths_hash[:game_teams]
+    @games = CSV.foreach(filepaths_hash[:games], headers: true, header_converters: :symbol) do |row|
+      home_team_id = row[:home_team_id]
+      away_goals  = row[:away_goals].to_i
+      home_goals = row[:home_goals].to_i
+      venue = row[:venue]
+      venue_link = row[:venue_link]
+    end
+
+    @teams = CSV.foreach(filepaths_hash[:teams], headers: true, header_converters: :symbol) do |row|
+      team_id = row[:team_id]
+      franchiseId = row[:franchiseId]
+      teamName = row[:teamName]
+      abbreviation = row[:abbreviation]
+      stadium = row[:stadium]
+      link = row[:link]
+    end
+
+    @game_teams = CSV.foreach(filepaths_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
+      game_id = row[:game_id]
+      team_id = row[:team_id]
+      hoa = row[:hoa]
+      result = row[:result]
+      head_coach = row[:head_coach]
+      goals = row[:goals].to_i
+      shots = row[:shots].to_i
+      tackles = row[:tackles].to_i
+      pim = row[:pim].to_i
+      powerPlayOpportunities = row[:powerPlayOpportunities].to_i
+      faceOffWinPercentage = row[:faceOffWinPercentage].to_i
+      giveaways = row[:giveaways].to_i
+      takeaways = row[:takeaways].to_i  
+    end 
   end
 
   # Game Statistics
