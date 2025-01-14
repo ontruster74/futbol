@@ -1,36 +1,30 @@
 class StatTracker
-  @@games = []
-  @@teams = []
-  @@game_teams = []
+  attr_reader :games, :teams, :game_teams
 
-  def self.games 
-    return @@games
-  end
-
-  def self.teams
-    return @@teams
-  end
-
-  def self.game_teams
-    return @@game_teams
+  def initialize(games, teams, game_teams)
+    @games = games
+    @teams = teams
+    @game_teams = game_teams
   end
 
   def self.from_csv(filepaths_hash)
-    @@games = GameFactory.create_games(filepaths_hash[:games])
-    @@teams = TeamFactory.create_teams(filepaths_hash[:teams])
-    @@game_teams = GameTeamFactory.create_game_teams(filepaths_hash[:game_teams])
+    games = GameFactory.create_games(filepaths_hash[:games])
+    teams = TeamFactory.create_teams(filepaths_hash[:teams])
+    game_teams = GameTeamFactory.create_game_teams(filepaths_hash[:game_teams])
 
-    return [@@games[1], @@teams[1], @@game_teams[1]]
+    return StatTracker.new(games, teams, game_teams)
   end
 
   # Game Statistics
 
   def highest_total_score
-    
+    highest_game = @games.max_by {|game| game.away_goals + game.home_goals}
+    return (highest_game.away_goals + highest_game.home_goals)
   end
 
   def lowest_total_score
-    
+    lowest_game = @games.min_by {|game| game.away_goals + game.home_goals}
+    return (lowest_game.away_goals + lowest_game.home_goals)
   end
 
   def percentage_home_wins
