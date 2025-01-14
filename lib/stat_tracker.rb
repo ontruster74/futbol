@@ -16,17 +16,9 @@ class StatTracker
   end
 
   def self.from_csv(filepaths_hash)
-    CSV.foreach(filepaths_hash[:games], headers: true, header_converters: :symbol) do |row|
-      @@games << Game.new(row[:home_team_id], row[:away_goals].to_i, row[:home_goals].to_i, row[:venue], row[:venue_link])
-    end
-
-    CSV.foreach(filepaths_hash[:teams], headers: true, header_converters: :symbol) do |row|
-      @@teams << Team.new(row[:team_id], row[:franchiseId], row[:teamName], row[:abbreviation], row[:stadium], row[:link])
-    end
-
-    CSV.foreach(filepaths_hash[:game_teams], headers: true, header_converters: :symbol) do |row|
-      @@game_teams << GameTeam.new(row[:game_id], row[:team_id], row[:hoa], row[:result], row[:head_coach], row[:goals].to_i, row[:shots].to_i, row[:tackles].to_i, row[:pim].to_i, row[:powerPlayOpportunities].to_i, row[:faceOffWinPercentage].to_i, row[:giveaways].to_i, row[:takeaways].to_i) 
-    end 
+    @@games = GameFactory.create_games(filepaths_hash[:games])
+    @@teams = TeamFactory.create_teams(filepaths_hash[:teams])
+    @@game_teams = GameTeamFactory.create_game_teams(filepaths_hash[:game_teams])
 
     return [@@games[1], @@teams[1], @@game_teams[1]]
   end
