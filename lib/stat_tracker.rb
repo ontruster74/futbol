@@ -46,7 +46,7 @@ class StatTracker
   end
 
   def average_goals_per_game
-    
+    binding.pry
   end
 
   def average_goals_by_season
