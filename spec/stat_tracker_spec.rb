@@ -35,7 +35,6 @@ describe StatTracker do
 
   describe '#highest_total_score' do
     it 'can return the highest total score' do
-      binding.pry
       expect(@stat_tracker.highest_total_score).to eq(6)
     end
   end
@@ -44,6 +43,12 @@ describe StatTracker do
     it 'can return the lowest total score' do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
-    
   end
+
+  describe "#count_games_by_season" do
+    it "can return count of games by season in a hash" do
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 20})
+    end
+  end
+
 end

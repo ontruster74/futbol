@@ -40,7 +40,9 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    
+    seasons_count = Hash.new(0)
+    @games.each{|game| seasons_count[game.season] += 1}
+    return seasons_count
   end
 
   def average_goals_per_game
