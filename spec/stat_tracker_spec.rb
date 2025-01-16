@@ -35,7 +35,6 @@ describe StatTracker do
 
   describe '#highest_total_score' do
     it 'can return the highest total score' do
-      binding.pry
       expect(@stat_tracker.highest_total_score).to eq(6)
     end
   end
@@ -44,6 +43,24 @@ describe StatTracker do
     it 'can return the lowest total score' do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
-    
   end
+
+  describe '#count_of_teams' do
+    it 'can return the count of teams' do
+      expect(@stat_tracker.count_of_teams).to eq(20)
+    end
+  end
+
+  describe '#best_offense' do
+    it 'can find the team with the best offense' do
+      expect(@stat_tracker.best_offense).to eq('FC Dallas')
+    end
+  end
+
+  describe '#worst_offense' do
+    it 'can find the team with the worst offense' do
+      expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
+    end
+  end
+
 end
