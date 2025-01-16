@@ -80,6 +80,17 @@ describe StatTracker do
   describe '#worst_offense' do
     it 'can find the team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
+      @stat_tracker.team_name('1')
+    end
+  end
+
+  describe "#average_scores" do 
+    it "returns home average scores" do 
+      expect(@stat_tracker.home_average_score).to eq({"6"=>2.4, "3"=>1.5, "5"=>0.5, "16"=>1.75, "17"=>2.67, "8"=>2.5, "9"=>4.0})
+    end
+
+    it "returns visitor average scores" do
+      expect(@stat_tracker.away_average_score).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.25, "16"=>1.0, "9"=>1.5, "8"=>1.5})
     end
   end
 end
