@@ -144,7 +144,8 @@ class StatTracker
   end
 
   def team_name(team_id)
-     
+    team = @teams.find{|x| x.team_id.include?(team_id)}
+    team.teamName
   end
 
   def highest_scoring_visitor

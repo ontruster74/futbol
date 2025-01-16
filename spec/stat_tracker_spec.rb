@@ -80,8 +80,7 @@ describe StatTracker do
   describe '#worst_offense' do
     it 'can find the team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
-      
-      binding.pry
+      @stat_tracker.team_name('1')
     end
   end
 
