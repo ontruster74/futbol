@@ -46,7 +46,8 @@ class StatTracker
   end
 
   def average_goals_per_game
-    binding.pry
+    total_goals = @games.sum{|game| game.away_goals + game.home_goals}
+    total_goals/@games.count
   end
 
   def average_goals_by_season
