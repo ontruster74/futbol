@@ -119,22 +119,36 @@ class StatTracker
     worst_offense_team = @teams.find {|team| team.team_id == lowest_scoring_id}.teamName
   end
 
-  def highest_scoring_visitor
+  def away_average_score
     away_scores = Hash.new(0)
-    home_scores = Hash.new(0)
-    home_count = Hash.new(0)
     away_count = Hash.new(0)
 
     @games.each do |game| 
       away_scores[game.away_team_id] += game.away_goals
-      home_scores[game.home_team_id] += game.home_goals
       away_count[game.away_team_id] += 1
+    end
+    away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id]).round(2)}
+    return away_scores
+  end
+
+  def home_average_score
+    home_scores = Hash.new(0)
+    home_count = Hash.new(0)
+
+    @games.each do |game|  
+      home_scores[game.home_team_id] += game.home_goals
       home_count[game.home_team_id] += 1
     end
-
-    away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id]).round(2)}
     home_scores.each{|team_id, goals| home_scores[team_id] = (goals.to_f / home_count[team_id]).round(2)}
-    return {home: home_scores, away: away_scores}
+    return home_scores
+  end
+
+  def team_name(team_id)
+     
+  end
+
+  def highest_scoring_visitor
+
   end
 
   def highest_scoring_home_team
