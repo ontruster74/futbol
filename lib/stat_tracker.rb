@@ -82,11 +82,22 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    
+    # team(team name) -> simple_game_teams(has total goals and HoA but every 2 lines is one game.)
+    # -> simple_games(has home and away goals and each line is a single game.)
+
+    # find_all_away_games = @game_teams.find_all { |game| (game.hoa == "away")
+    # total_visitor_points_per_season = sum up all points they scored in all away games per team
+    # total_away_games_per_season = number of away games each team played per season
+    # average_visitor_score_per_season = total visitor points per season / num of away games played in each season
+    # overall_average_visitor_score = sum of the averge away scores across all seasons / total number of seasons played
+    # lowest_average = compare overall average visitor scores for each team and find the one with the lowest value 
+    # then have it return the team name 
+
+    total_games = @game_teams.count.to_f
   end
 
   def lowest_scoring_home_team
-    
+    total_games = @game_teams.count.to_f
   end
 
   # Season Stats
