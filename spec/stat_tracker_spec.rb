@@ -84,5 +84,7 @@ describe StatTracker do
     end
   end
 
+  describe "#away_average_score"
+
 
 end
