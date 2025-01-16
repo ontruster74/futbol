@@ -52,7 +52,7 @@ describe StatTracker do
   end
 
   describe "#average_goals_per_game" do
-    it "can find the average goals per game in an array" do
+    it "can find the average goals per game as a float" do
       expect(@stat_tracker.average_goals_per_game).to eq(3.8)
     end 
   end
@@ -61,6 +61,6 @@ describe StatTracker do
     it "can find the average goals per season" do
       expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>0.25})
     end
-  end
+  end 
 
 end
