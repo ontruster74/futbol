@@ -54,7 +54,7 @@ describe StatTracker do
   describe "#average_goals_per_game" do
     it "can find the average goals per game in an array" do
       expect(@stat_tracker.average_goals_per_game).to eq()
-    end
+    end 
   end
 
 end
