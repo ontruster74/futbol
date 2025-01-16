@@ -149,11 +149,13 @@ class StatTracker
   end
 
   def highest_scoring_visitor
-
+    sorted = away_average_score.max_by{|key, value| value}
+    team_name(sorted[0])
   end
 
   def highest_scoring_home_team
-    
+    sorted = home_average_score.max_by{|key, value| value}
+    team_name(sorted[0]) 
   end
 
   def lowest_scoring_visitor

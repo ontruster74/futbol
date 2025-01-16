@@ -80,11 +80,24 @@ describe StatTracker do
   describe '#worst_offense' do
     it 'can find the team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
-      @stat_tracker.team_name('1')
     end
   end
 
-  describe "#away_average_score"
+  describe "#highest_scoring_visitor" do
+    it "can find the name of the highest average scoring visitor" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Cincinnati")
+    end
+  end
 
+  describe "#highest_scoring_home_team" do
+    it "can find the name of the highest average home team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+    end
+  end
 
+  describe "#team_name" do
+    it "can find the team name based off of the team id" do
+      expect(@stat_tracker.team_name("1")).to eq("Atlanta United")
+    end
+  end
 end
