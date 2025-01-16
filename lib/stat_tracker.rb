@@ -1,3 +1,4 @@
+require 'pry'
 class StatTracker
   attr_reader :games, :teams, :game_teams
 
@@ -28,15 +29,22 @@ class StatTracker
   end
 
   def percentage_home_wins
-    
+    # (wins / total_games) * 100.round(2)
+    home_wins = @game_teams.find_all { |game| (game.hoa == "home") && (game.result == "WIN")}.count.to_f
+    total_games = @game_teams.count.to_f
+    return (home_wins / total_games) * 100.round(2)
   end
 
   def percentage_visitor_wins
-    
+    visitor_wins = @game_teams.find_all { |game| (game.hoa == "away") && (game.result == "WIN")}.count.to_f
+    total_games = @game_teams.count.to_f
+    return (visitor_wins / total_games) * 100.round(2)
   end
 
   def percentage_ties
-    
+    games_tied = @game_teams.find_all { |game| game.result == "TIE"}.count.to_f
+    total_games = @game_teams.count.to_f
+    return (games_tied / total_games) * 100.round(2)    
   end
 
   def count_of_games_by_season
