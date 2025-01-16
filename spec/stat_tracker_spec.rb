@@ -44,7 +44,27 @@ describe StatTracker do
       expect(@stat_tracker.lowest_total_score).to eq(1)
     end
   end
+  
+  describe '#percentage_of_home_wins' do
+    it 'can return the percentage of home wins' do
+      expect(@stat_tracker.percentage_home_wins).to eq(30.00)
+    end
+  end
 
+  describe '#percentage_of_visitor_wins' do 
+    it 'can return the percentage of visitor wins' do
+      expect(@stat_tracker.percentage_visitor_wins).to eq(20.00)
+    end
+  end
+
+  describe '#percentage_ties' do
+    it 'can return the percentage of ties' do
+      expect(@stat_tracker.percentage_ties).to eq(0.00)
+    end
+  end
+  
+#   League Stats
+  
   describe '#count_of_teams' do
     it 'can return the count of teams' do
       expect(@stat_tracker.count_of_teams).to eq(20)
@@ -62,5 +82,4 @@ describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
     end
   end
-
 end
