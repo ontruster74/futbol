@@ -175,7 +175,7 @@ class StatTracker
     lowest_away_scorer = away_average_score.min_by { |team_id, score| score }
     team_name(lowest_away_scorer[0])
   end
-
+    
   def lowest_scoring_home_team
     lowest_home_scorer = home_average_score.min_by { |team_id, score| score }
     team_name(lowest_home_scorer[0])
@@ -199,12 +199,44 @@ class StatTracker
     
   end
 
-  def most_tackles
-    
+  def most_tackles(season)
+    season_games = @games.select { |game| game.season == season }
+    season_game_teams = []
+    teams_hash = {}
+    season_games.each do |game|
+      matching_game_teams = @game_teams.select { |game_team| game_team.game_id == game.game_id}
+      season_game_teams += matching_game_teams
+    end
+    season_game_teams.each do |season_game|
+      team_id = season_game.team_id.to_sym
+      if not teams_hash.has_key? team_id
+        teams_hash[team_id] = 0
+      end
+      teams_hash[team_id] += season_game.tackles.to_i
+    end
+    most_tackles = teams_hash.values.max
+    most_tackles_team_id = teams_hash.key(most_tackles).to_s
+    most_tackles_team = @teams.find { |team| team.team_id == most_tackles_team_id }.teamName
   end
 
-  def fewest_tackles
-    
+  def fewest_tackles(season)
+    season_games = @games.select { |game| game.season == season }
+    season_game_teams = []
+    teams_hash = {}
+    season_games.each do |game|
+      matching_game_teams = @game_teams.select { |game_team| game_team.game_id == game.game_id}
+      season_game_teams += matching_game_teams
+    end
+    season_game_teams.each do |season_game|
+      team_id = season_game.team_id.to_sym
+      if not teams_hash.has_key? team_id
+        teams_hash[team_id] = 0
+      end
+      teams_hash[team_id] += season_game.tackles.to_i
+    end
+    fewest_tackles = teams_hash.values.min
+    fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
+    fewest_tackles_team = @teams.find { |team| team.team_id == fewest_tackles_team_id }.teamName
   end
 
 end
