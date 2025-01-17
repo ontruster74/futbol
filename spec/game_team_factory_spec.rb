@@ -13,7 +13,7 @@ describe GameTeamFactory do
       expect(@game_teams[0]).to be_a(GameTeam)
     end
 
-    it 'returns an object containing GameTeam objects created with external CSV data' do
+    it 'returns a collection of GameTeam objects created with external CSV data' do
       expect(@game_teams[0].game_id).to eq("2012030221")
     end
   end

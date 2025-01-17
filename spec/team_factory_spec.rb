@@ -13,7 +13,7 @@ describe TeamFactory do
       expect(@teams[0]).to be_a(Team)
     end
 
-    it 'returns an object containing Team objects created with external CSV data' do
+    it 'returns a collection of Team objects created with external CSV data' do
       expect(@teams[0].team_id).to eq("1")
     end
   end

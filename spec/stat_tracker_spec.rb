@@ -41,15 +41,15 @@ describe StatTracker do
       expect(@stat_tracker).to be_a(StatTracker)
     end
 
-    it 'returns an object that holds Game objects created from external CSV data' do
+    it 'returns a collection that holds Game objects created from external CSV data' do
       expect(@stat_tracker.games[0].venue).to eq("Toyota Stadium")
     end
 
-    it 'returns an object that holds Team objects created from external CSV data' do
+    it 'returns a collection that holds Team objects created from external CSV data' do
       expect(@stat_tracker.teams[0].teamName).to eq("Atlanta United")
     end
 
-    it 'returns an object that holds GameTeam objects created from external CSV data' do
+    it 'returns a collection that holds GameTeam objects created from external CSV data' do
       expect(@stat_tracker.game_teams[0].head_coach).to eq("John Tortorella")
     end
   end
