@@ -36,7 +36,7 @@ describe StatTracker do
     end
   end
 
-  describe '#from_csv' do
+  describe '#self.from_csv' do
     it 'returns an object of type StatTracker' do
       expect(@stat_tracker).to be_a(StatTracker)
     end
