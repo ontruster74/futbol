@@ -128,7 +128,6 @@ class StatTracker
       teams_hash[home_id] += game.home_goals.to_i
       teams_hash[away_id] += game.away_goals.to_i
     end
-
     lowest_score = teams_hash.values.min
     lowest_scoring_id = teams_hash.key(lowest_score).to_s
     worst_offense_team = @teams.find {|team| team.team_id == lowest_scoring_id}.teamName
@@ -171,12 +170,13 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    lowest_away_scorer = away_average_score.min{ |away_score| away_score.team_id }
-    return lowest_away_scorer.team_name
+    lowest_away_scorer = away_average_score.min_by { |team_id, score| score }
+    team_name(lowest_away_scorer[0])
   end
 
   def lowest_scoring_home_team
-
+    lowest_home_scorer = home_average_score.min_by { |team_id, score| score }
+    team_name(lowest_home_scorer[0])
   end
 
   # Season Stats

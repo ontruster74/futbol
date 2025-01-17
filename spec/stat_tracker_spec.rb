@@ -93,4 +93,14 @@ describe StatTracker do
       expect(@stat_tracker.away_average_score).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.25, "16"=>1.0, "9"=>1.5, "8"=>1.5})
     end
   end
+
+  describe '#lowest_scoreres' do
+    it "returns the visiting team name with the lowest average score" do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+    
+    it "returns the home team name with the lowest average score" do 
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
 end
