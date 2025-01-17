@@ -52,13 +52,28 @@ class StatTracker
     seasons_count = Hash.new(0)
     @games.each{|game| seasons_count[game.season] += 1}
     return seasons_count
+    seasons_count = Hash.new(0)
+    @games.each{|game| seasons_count[game.season] += 1}
+    return seasons_count
   end
 
   def average_goals_per_game
     total_goals = @games.sum{|game| game.away_goals + game.home_goals}
     (total_goals.to_f/@games.count).round(2)
+    total_goals = @games.sum{|game| game.away_goals + game.home_goals}
+    (total_goals.to_f/@games.count).round(2)
   end
 
+  def average_goals_per_season
+    average_goals = Hash.new(0)
+    @games.each do |game| 
+      season = game.season
+      total = game.away_goals + game.home_goals
+      average_goals[season] = (total.to_f / count_of_games_by_season[season]).round(2)
+    end
+    return average_goals
+  end
+  
   def average_goals_per_season
     average_goals = Hash.new(0)
     @games.each do |game| 
@@ -113,7 +128,6 @@ class StatTracker
       teams_hash[home_id] += game.home_goals.to_i
       teams_hash[away_id] += game.away_goals.to_i
     end
-
     lowest_score = teams_hash.values.min
     lowest_scoring_id = teams_hash.key(lowest_score).to_s
     worst_offense_team = @teams.find {|team| team.team_id == lowest_scoring_id}.teamName
@@ -134,7 +148,6 @@ class StatTracker
   def home_average_score
     home_scores = Hash.new(0)
     home_count = Hash.new(0)
-
     @games.each do |game|  
       home_scores[game.home_team_id] += game.home_goals
       home_count[game.home_team_id] += 1
@@ -159,11 +172,13 @@ class StatTracker
   end
 
   def lowest_scoring_visitor
-    
+    lowest_away_scorer = away_average_score.min_by { |team_id, score| score }
+    team_name(lowest_away_scorer[0])
   end
 
   def lowest_scoring_home_team
-    
+    lowest_home_scorer = home_average_score.min_by { |team_id, score| score }
+    team_name(lowest_home_scorer[0])
   end
 
   # Season Stats

@@ -100,6 +100,14 @@ describe StatTracker do
     end
   end
 
+  describe "#average_scores" do 
+    it "returns home average scores" do 
+      expect(@stat_tracker.home_average_score).to eq({"6"=>2.4, "3"=>1.5, "5"=>0.5, "16"=>1.75, "17"=>2.67, "8"=>2.5, "9"=>4.0})
+    end
+
+    it "returns visitor average scores" do
+      expect(@stat_tracker.away_average_score).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.25, "16"=>1.0, "9"=>1.5, "8"=>1.5})
+
   describe "#highest_scoring_visitor" do
     it "can find the name of the highest average scoring visitor" do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Cincinnati")
@@ -118,4 +126,13 @@ describe StatTracker do
     end
   end
 
+  describe '#lowest_scorers' do
+    it "returns the visiting team name with the lowest average score" do 
+      expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
+    end
+    
+    it "returns the home team name with the lowest average score" do 
+      expect(@stat_tracker.lowest_scoring_home_team).to eq("Sporting Kansas City")
+    end
+  end
 end
