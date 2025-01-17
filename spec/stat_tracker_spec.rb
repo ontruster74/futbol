@@ -63,6 +63,23 @@ describe StatTracker do
     end
   end
   
+  describe "#count_games_by_season" do
+    it "can return count of games by season in a hash" do
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 20})
+    end
+  end
+
+  describe "#average_goals_per_game" do
+    it "can find the average goals per game as a float" do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.8)
+    end 
+  end
+
+  describe "#average_goals_per_season" do
+    it "can find the average goals per season" do
+      expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>0.25})
+    end
+  end 
 #   League Stats
   
   describe '#count_of_teams' do
@@ -80,7 +97,6 @@ describe StatTracker do
   describe '#worst_offense' do
     it 'can find the team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
-      @stat_tracker.team_name('1')
     end
   end
 
@@ -91,10 +107,26 @@ describe StatTracker do
 
     it "returns visitor average scores" do
       expect(@stat_tracker.away_average_score).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.25, "16"=>1.0, "9"=>1.5, "8"=>1.5})
+
+  describe "#highest_scoring_visitor" do
+    it "can find the name of the highest average scoring visitor" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Cincinnati")
     end
   end
 
-  describe '#lowest_scoreres' do
+  describe "#highest_scoring_home_team" do
+    it "can find the name of the highest average home team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+    end
+  end
+
+  describe "#team_name" do
+    it "can find the team name based off of the team id" do
+      expect(@stat_tracker.team_name("1")).to eq("Atlanta United")
+    end
+  end
+
+  describe '#lowest_scorers' do
     it "returns the visiting team name with the lowest average score" do 
       expect(@stat_tracker.lowest_scoring_visitor).to eq("Sporting Kansas City")
     end
