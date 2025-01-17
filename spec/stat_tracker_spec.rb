@@ -15,30 +15,42 @@ describe StatTracker do
     @stat_tracker = StatTracker.from_csv(locations)
   end
 
-  describe '#from_csv/initialize' do
+  describe 'initialize' do
     it 'exists' do
       expect(@stat_tracker).to be_a(StatTracker)
     end
-  end
 
-  describe '#games' do
     it 'has a collection of games' do
       expect(@stat_tracker.games).to be_a(Array)
       expect(@stat_tracker.games[0]).to be_a(Game)
     end
-  end
 
-  describe '#teams' do
     it 'has a collection of teams' do
       expect(@stat_tracker.teams).to be_a(Array)
       expect(@stat_tracker.teams[0]).to be_a(Team)
     end
-  end
 
-  describe '#games_teams' do
     it 'has a collection of game teams' do
       expect(@stat_tracker.game_teams).to be_a(Array)
       expect(@stat_tracker.game_teams[0]).to be_a(GameTeam)
+    end
+  end
+
+  describe '#from_csv' do
+    it 'returns an object of type StatTracker' do
+      expect(@stat_tracker).to be_a(StatTracker)
+    end
+
+    it 'returns an object that holds Game objects created from external CSV data' do
+      expect(@stat_tracker.games[0].venue).to eq("Toyota Stadium")
+    end
+
+    it 'returns an object that holds Team objects created from external CSV data' do
+      expect(@stat_tracker.teams[0].teamName).to eq("Atlanta United")
+    end
+
+    it 'returns an object that holds GameTeam objects created from external CSV data' do
+      expect(@stat_tracker.game_teams[0].head_coach).to eq("John Tortorella")
     end
   end
 
