@@ -100,4 +100,22 @@ describe StatTracker do
     end
   end
 
+  describe "#highest_scoring_visitor" do
+    it "can find the name of the highest average scoring visitor" do
+      expect(@stat_tracker.highest_scoring_visitor).to eq("FC Cincinnati")
+    end
+  end
+
+  describe "#highest_scoring_home_team" do
+    it "can find the name of the highest average home team" do
+      expect(@stat_tracker.highest_scoring_home_team).to eq("New York City FC")
+    end
+  end
+
+  describe "#team_name" do
+    it "can find the team name based off of the team id" do
+      expect(@stat_tracker.team_name("1")).to eq("Atlanta United")
+    end
+  end
+
 end

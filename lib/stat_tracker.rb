@@ -47,6 +47,7 @@ class StatTracker
     return (games_tied / total_games) * 100.round(2)    
   end
 
+
   def count_of_games_by_season
     seasons_count = Hash.new(0)
     @games.each{|game| seasons_count[game.season] += 1}
@@ -67,7 +68,7 @@ class StatTracker
     end
     return average_goals
   end
-
+  
    # League Statistics
    
   def count_of_teams
@@ -118,12 +119,43 @@ class StatTracker
     worst_offense_team = @teams.find {|team| team.team_id == lowest_scoring_id}.teamName
   end
 
+  def away_average_score
+    away_scores = Hash.new(0)
+    away_count = Hash.new(0)
+
+    @games.each do |game| 
+      away_scores[game.away_team_id] += game.away_goals
+      away_count[game.away_team_id] += 1
+    end
+    away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id]).round(2)}
+    return away_scores
+  end
+
+  def home_average_score
+    home_scores = Hash.new(0)
+    home_count = Hash.new(0)
+
+    @games.each do |game|  
+      home_scores[game.home_team_id] += game.home_goals
+      home_count[game.home_team_id] += 1
+    end
+    home_scores.each{|team_id, goals| home_scores[team_id] = (goals.to_f / home_count[team_id]).round(2)}
+    return home_scores
+  end
+
+  def team_name(team_id)
+    team = @teams.find{|x| x.team_id.include?(team_id)}
+    team.teamName
+  end
+
   def highest_scoring_visitor
-    
+    sorted = away_average_score.max_by{|key, value| value}
+    team_name(sorted[0])
   end
 
   def highest_scoring_home_team
-    
+    sorted = home_average_score.max_by{|key, value| value}
+    team_name(sorted[0]) 
   end
 
   def lowest_scoring_visitor
