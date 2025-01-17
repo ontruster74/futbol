@@ -48,15 +48,24 @@ class StatTracker
   end
 
   def count_of_games_by_season
-    
+    seasons_count = Hash.new(0)
+    @games.each{|game| seasons_count[game.season] += 1}
+    return seasons_count
   end
 
   def average_goals_per_game
-    
+    total_goals = @games.sum{|game| game.away_goals + game.home_goals}
+    (total_goals.to_f/@games.count).round(2)
   end
 
-  def average_goals_by_season
-    
+  def average_goals_per_season
+    average_goals = Hash.new(0)
+    @games.each do |game| 
+      season = game.season
+      total = game.away_goals + game.home_goals
+      average_goals[season] = (total.to_f / count_of_games_by_season[season]).round(2)
+    end
+    return average_goals
   end
 
    # League Statistics

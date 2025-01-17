@@ -63,6 +63,23 @@ describe StatTracker do
     end
   end
   
+  describe "#count_games_by_season" do
+    it "can return count of games by season in a hash" do
+      expect(@stat_tracker.count_of_games_by_season).to eq({"20122013" => 20})
+    end
+  end
+
+  describe "#average_goals_per_game" do
+    it "can find the average goals per game as a float" do
+      expect(@stat_tracker.average_goals_per_game).to eq(3.8)
+    end 
+  end
+
+  describe "#average_goals_per_season" do
+    it "can find the average goals per season" do
+      expect(@stat_tracker.average_goals_per_season).to eq({"20122013"=>0.25})
+    end
+  end 
 #   League Stats
   
   describe '#count_of_teams' do
@@ -82,4 +99,5 @@ describe StatTracker do
       expect(@stat_tracker.worst_offense).to eq('Sporting Kansas City')
     end
   end
+
 end
