@@ -131,7 +131,8 @@ describe StatTracker do
 
     it "returns visitor average scores" do
       expect(@stat_tracker.away_average_score).to eq({"3"=>1.67, "6"=>3.0, "5"=>0.5, "17"=>1.25, "16"=>1.0, "9"=>1.5, "8"=>1.5})
-
+    end
+  end
 
   describe "#highest_scoring_visitor" do
     it "can find the name of the highest average scoring visitor" do
@@ -162,6 +163,16 @@ describe StatTracker do
   end
 
   # Season Stats
+
+  describe '#coach_stats' do 
+    it "returns the name of the coach with the best win percentage for the season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    it "returns the name of the coach with the worst win percentage for the season" do 
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    end
+  end
 
   describe '#most_tackles' do 
     it 'can find the team with the most tackles for a given season' do
