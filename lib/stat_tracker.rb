@@ -191,12 +191,20 @@ class StatTracker
     
   end
 
-  def most_accurate_team
-    
+  def most_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    max = season_games.max_by {|game| game.shots.to_f / game.goals}
+    team_name(max.team_id)
   end
 
-  def least_accurate_team
-    
+  def least_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    min = season_games.min_by {|game| game.shots.to_f / game.goals}
+    team_name(min.team_id)
   end
 
   def most_tackles(season)
