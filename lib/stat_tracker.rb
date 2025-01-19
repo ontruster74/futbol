@@ -83,25 +83,26 @@ class StatTracker
   end
 
   def best_offense
-    teams_hash = {}
+    team_scores = Hash.new(0)
+    team_games = Hash.new(0)
+  
     @games.each do |game|
-      home_id = game.home_team_id.to_sym
-      away_id = game.away_team_id.to_sym
-      if !(teams_hash.has_key?(home_id))
-        teams_hash[home_id] = 0
-      end
-
-      if !(teams_hash.has_key?(away_id))
-        teams_hash[away_id] = 0
-      end
-
-      teams_hash[home_id] += game.home_goals.to_i
-      teams_hash[away_id] += game.away_goals.to_i
+      home_id = game.home_team_id
+      away_id = game.away_team_id
+  
+      team_scores[home_id] += game.home_goals
+      team_scores[away_id] += game.away_goals
+  
+      team_games[home_id] += 1
+      team_games[away_id] += 1
     end
-
-    highest_score = teams_hash.values.max
-    highest_scoring_id = teams_hash.key(highest_score).to_s
-    best_offense_team = @teams.find {|team| team.team_id == highest_scoring_id}.teamName
+  
+    avg_scores = team_scores.transform_values { |goals| goals.to_f / team_games[team_scores.key(goals)] }
+  
+    highest_avg_score = avg_scores.values.max
+    highest_scoring_team_id = avg_scores.key(highest_avg_score)
+  
+    @teams.find { |team| team.team_id == highest_scoring_team_id }.teamName
   end
 
   def worst_offense
@@ -134,7 +135,6 @@ class StatTracker
       away_count[game.away_team_id] += 1
     end
     away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id])}
-    binding.pry
     return away_scores
   end
 
@@ -161,7 +161,7 @@ class StatTracker
 
   def highest_scoring_home_team
     sorted = home_average_score.max_by{|key, value| value}
-    reuturn team_name(sorted[0]) 
+    return team_name(sorted[0]) 
   end
 
   def lowest_scoring_visitor
