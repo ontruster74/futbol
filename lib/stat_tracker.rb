@@ -185,20 +185,48 @@ class StatTracker
 
   # Season Stats
   
-  def winningest_coach
-    
+  def winningest_coach(season)
+    games_coached = @game_teams.group_by { |game| game.head_coach}
+    coach_stats = {}
+    winningest_coach = nil
+    games_coached.each do |coach, games|
+      total_games = games.count
+      wins = games.count { |game| game.result == "WIN" }
+      win_percentage = (wins.to_f / total_games.to_f).round(2)
+      coach_stats[coach] = win_percentage
+      winningest_coach = coach_stats.max_by { |coach, win_percentage| win_percentage }.first
+    end
+    return winningest_coach
   end
 
-  def worst_coach
-    
+  def worst_coach(season)
+    games_coached = @game_teams.group_by { |game| game.head_coach}
+    coach_stats = {}
+    worst_coach = nil
+    games_coached.each do |coach, games|
+      total_games = games.count
+      losses = games.count { |game| game.result == "WIN" }
+      loss_percentage = (losses.to_f / total_games.to_f).round(2)
+      coach_stats[coach] = loss_percentage
+      worst_coach = coach_stats.min_by { |coach, loss_percentage| loss_percentage }.first
+    end
+    return worst_coach
   end
 
-  def most_accurate_team
-    
+  def most_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    max = season_games.max_by {|game| game.shots.to_f / game.goals}
+    team_name(max.team_id)
   end
 
-  def least_accurate_team
-    
+  def least_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    min = season_games.min_by {|game| game.shots.to_f / game.goals}
+    team_name(min.team_id)
   end
 
   def most_tackles(season)
@@ -246,5 +274,4 @@ class StatTracker
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
     @teams.find { |team| team.team_id == fewest_tackles_team_id }.team_name
   end
-
 end

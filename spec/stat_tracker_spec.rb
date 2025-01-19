@@ -147,7 +147,7 @@ describe StatTracker do
       expect(@stat_tracker.home_average_score["17"]).to eq(2.08)
       expect(@stat_tracker.home_average_score["53"]).to eq(1.93)
     end
-
+    
     it "returns visitor average scores" do
       expect(@stat_tracker.away_average_score).to be_a(Hash)
       expect(@stat_tracker.away_average_score["1"]).to eq(1.9)
@@ -184,8 +184,29 @@ describe StatTracker do
     end
   end
 
-  # Season Stats
+  # Season 
 
+  describe '#coach_stats' do 
+    it "returns the name of the coach with the best win percentage for the season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    it "returns the name of the coach with the worst win percentage for the season" do 
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    end
+  end
+
+
+  describe "most and least accurate team" do
+    it '#most_accurate_team' do
+      expect(@stat_tracker.most_accurate_team("20122013")).to eq("Sporting Kansas City")
+    end
+    
+    it "#least_accurate_team" do
+      expect(@stat_tracker.least_accurate_team("20122013")).to eq("FC Cincinnati")
+    end
+  end
+    
   describe '#most_tackles' do 
     it 'can find the team with the most tackles for a given season' do
       expect(@stat_tracker.most_tackles('20132014')).to eq('FC Cincinnati')
