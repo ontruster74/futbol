@@ -133,7 +133,8 @@ class StatTracker
       away_scores[game.away_team_id] += game.away_goals
       away_count[game.away_team_id] += 1
     end
-    away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id]).round(2)}
+    away_scores.each{|team_id, goals| away_scores[team_id] = (goals.to_f / away_count[team_id])}
+    binding.pry
     return away_scores
   end
 
@@ -144,7 +145,7 @@ class StatTracker
       home_scores[game.home_team_id] += game.home_goals
       home_count[game.home_team_id] += 1
     end
-    home_scores.each{|team_id, goals| home_scores[team_id] = (goals.to_f / home_count[team_id]).round(2)}
+    home_scores.each{|team_id, goals| home_scores[team_id] = (goals.to_f / home_count[team_id])}
     return home_scores
   end
 
@@ -155,12 +156,12 @@ class StatTracker
 
   def highest_scoring_visitor
     sorted = away_average_score.max_by{|key, value| value}
-    team_name(sorted[0])
+    return team_name(sorted[0])
   end
 
   def highest_scoring_home_team
     sorted = home_average_score.max_by{|key, value| value}
-    team_name(sorted[0]) 
+    reuturn team_name(sorted[0]) 
   end
 
   def lowest_scoring_visitor
