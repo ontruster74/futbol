@@ -49,4 +49,25 @@ Github profile link: https://github.com/ontruster74
 Logan Sauer
 Github profile link: https://github.com/ldsauer
 
+------------------------------------
+Iteration 3 Retrospective 
+------------------------------------
+
+For our retro, we used the EasyRetro online tool: https://easyretro.io/publicboard/bfWsAYUml2aXrJCv72tOrW7ybsM2/705879bf-e1ad-48ea-8c4f-391b64eb8ccb
+
+3 Things That Went Well During The Project
+-----------------------------------------------
+1 (Logan): I think we did a great job of staying in communication with each other and making sure that we were all on the same page as far as working through the iterations at a good pace as a group.
+
+2 (Patrick): I feel that the integration between methods and testing went a lot smoother than I expected. We had conflicts when merging to main, but it was mostly formatting issues. I like that we came together during the pull requests to do a little more live code eval, and worked through it together.
+
+3 (Rig): The team did a great job of balancing both their synchronous and asynchronous efforts. In other words, I felt like I was able to make my own schedule during the project while still working closely with everyone else involved.
+
+3 Things We Would Do Differently Next Time
+--------------------------------------------------
+1 (Logan): Take the initiative to host a "group work session" where I set up a huddle/zoom and work in there, even if it's cameras off. We talked about doing it at the beginning but I never followed through with it. So taking the initiative to set up the meeting and not wait for someone else to set it up.
+
+2 (Patrick): In the future, I want to be more communicative of what and when I am working on stuff, so if I need to reach out for help it might be easier for others to help. And vice versa, if someone needs help it is easier for them to coordinate with me.
+
+3 (Rig): It will be a good idea to slow down and review my code more carefully as I am writing it; good code is better than fast code. I will try to make my branches smaller in scope and plan their creation in advance so that they are easier to review with the group as a whole.
 
