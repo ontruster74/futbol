@@ -15,11 +15,11 @@ describe Team do
     end
 
     it 'has a franchise id' do
-      expect(@team.franchiseId).to eq(23)
+      expect(@team.franchise_id).to eq(23)
     end
 
     it 'has a team name' do
-      expect(@team.teamName).to eq("Atlanta United")
+      expect(@team.team_name).to eq("Atlanta United")
     end
 
     it 'has an abbreviation' do

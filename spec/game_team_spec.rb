@@ -51,15 +51,15 @@ describe GameTeam do
     end
 
     it 'tracks power play opporturnities' do
-      expect(@game_team.powerPlayOpportunities).to eq(3)
+      expect(@game_team.power_play_opportunities).to eq(3)
     end
 
     it 'tracks power play goals' do
-      expect(@game_team.powerPlayGoals).to eq(0)
+      expect(@game_team.power_play_goals).to eq(0)
     end
 
     it 'has a face-off win percentage' do
-      expect(@game_team.faceOffWinPercentage).to eq(44.8)
+      expect(@game_team.face_off_win_percentage).to eq(44.8)
     end
 
     it 'tracks giveaways' do

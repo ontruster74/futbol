@@ -2,12 +2,12 @@ require './spec/spec_helper'
 
 describe TeamFactory do
   before(:each) do
-    team_path = './data/simple_teams.csv'
+    team_path = './data/teams.csv'
 
     @teams = TeamFactory.create_teams(team_path)
   end
 
-  describe '#self.create_teams' do
+  describe '::create_teams' do
     it 'returns an array of Team objects' do
       expect(@teams).to be_a(Array)
       expect(@teams[0]).to be_a(Team)
