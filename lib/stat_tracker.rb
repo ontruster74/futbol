@@ -184,27 +184,29 @@ class StatTracker
   def winningest_coach(season)
     games_coached = @game_teams.group_by { |game| game.head_coach}
     coach_stats = {}
+    winningest_coach = nil
     games_coached.each do |coach, games|
       total_games = games.count
       wins = games.count { |game| game.result == "WIN" }
-      win_percentage = (wins.to_f / total_games.to_f) * 100.round(2)
+      win_percentage = (wins.to_f / total_games.to_f).round(2)
       coach_stats[coach] = win_percentage
       winningest_coach = coach_stats.max_by { |coach, win_percentage| win_percentage }.first
-      winningest_coach
     end
+    return winningest_coach
   end
 
   def worst_coach(season)
     games_coached = @game_teams.group_by { |game| game.head_coach}
     coach_stats = {}
+    worst_coach = nil
     games_coached.each do |coach, games|
       total_games = games.count
       losses = games.count { |game| game.result == "WIN" }
-      loss_percentage = (losses.to_f / total_games.to_f) * 100.round(2)
+      loss_percentage = (losses.to_f / total_games.to_f).round(2)
       coach_stats[coach] = loss_percentage
       worst_coach = coach_stats.min_by { |coach, loss_percentage| loss_percentage }.first
-      worst_coach
     end
+    return worst_coach
   end
 
   def most_accurate_team
