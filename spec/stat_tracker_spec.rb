@@ -164,6 +164,17 @@ describe StatTracker do
 
   # Season 
 
+  describe '#coach_stats' do 
+    it "returns the name of the coach with the best win percentage for the season" do
+      expect(@stat_tracker.winningest_coach("20122013")).to eq("Claude Julien")
+    end
+
+    it "returns the name of the coach with the worst win percentage for the season" do 
+      expect(@stat_tracker.worst_coach("20122013")).to eq("John Tortorella")
+    end
+  end
+
+
   describe "most and least accurate team" do
     it '#most_accurate_team' do
       expect(@stat_tracker.most_accurate_team("20122013")).to eq("Sporting Kansas City")
