@@ -1,9 +1,9 @@
 # runner.rb
 require './spec/spec_helper'
 
-game_path = './data/simple_games.csv'
-team_path = './data/simple_teams.csv'
-game_teams_path = './data/simple_game_teams.csv'
+game_path = './data/games.csv'
+team_path = './data/teams.csv'
+game_teams_path = './data/game_teams.csv'
 
 locations = {
   games: game_path,

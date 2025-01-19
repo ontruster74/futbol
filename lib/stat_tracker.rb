@@ -5,7 +5,6 @@ require_relative './game_factory'
 require_relative './team_factory'
 require_relative './game_team_factory'
 require 'csv'
-require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -106,7 +105,7 @@ class StatTracker
 
     highest_scoring_team_id = avg_scores.key(highest_avg_score)
     
-    @teams.find {|team| team.team_id == highest_scoring_team_id}.teamName
+    @teams.find {|team| team.team_id == highest_scoring_team_id}.team_name
   end
 
   def worst_offense
@@ -133,7 +132,7 @@ class StatTracker
 
     lowest_scoring_team_id = avg_scores.key(lowest_avg_score)
     
-    @teams.find {|team| team.team_id == lowest_scoring_team_id}.teamName
+    @teams.find {|team| team.team_id == lowest_scoring_team_id}.team_name
   end
 
   def away_average_score
@@ -161,7 +160,7 @@ class StatTracker
 
   def team_name(team_id)
     team = @teams.find{|team| team.team_id == team_id.to_s}
-    team.teamName
+    team.team_name
   end
 
   def highest_scoring_visitor
@@ -206,10 +205,12 @@ class StatTracker
     season_games = @games.select { |game| game.season == season }
     season_game_teams = []
     teams_hash = {}
+
     season_games.each do |game|
       matching_game_teams = @game_teams.select { |game_team| game_team.game_id == game.game_id}
       season_game_teams += matching_game_teams
     end
+
     season_game_teams.each do |season_game|
       team_id = season_game.team_id.to_sym
       if not teams_hash.has_key? team_id
@@ -217,19 +218,22 @@ class StatTracker
       end
       teams_hash[team_id] += season_game.tackles.to_i
     end
+
     most_tackles = teams_hash.values.max
     most_tackles_team_id = teams_hash.key(most_tackles).to_s
-    most_tackles_team = @teams.find { |team| team.team_id == most_tackles_team_id }.teamName
+    @teams.find { |team| team.team_id == most_tackles_team_id }.team_name
   end
 
   def fewest_tackles(season)
     season_games = @games.select { |game| game.season == season }
     season_game_teams = []
     teams_hash = {}
+
     season_games.each do |game|
       matching_game_teams = @game_teams.select { |game_team| game_team.game_id == game.game_id}
       season_game_teams += matching_game_teams
     end
+
     season_game_teams.each do |season_game|
       team_id = season_game.team_id.to_sym
       if not teams_hash.has_key? team_id
@@ -237,9 +241,10 @@ class StatTracker
       end
       teams_hash[team_id] += season_game.tackles.to_i
     end
+
     fewest_tackles = teams_hash.values.min
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
-    fewest_tackles_team = @teams.find { |team| team.team_id == fewest_tackles_team_id }.teamName
+    @teams.find { |team| team.team_id == fewest_tackles_team_id }.team_name
   end
 
 end

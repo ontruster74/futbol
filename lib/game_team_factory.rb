@@ -1,5 +1,3 @@
-
-
 class GameTeamFactory 
   def self.create_game_teams(filepath)
     game_teams = []
