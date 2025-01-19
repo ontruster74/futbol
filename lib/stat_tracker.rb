@@ -187,10 +187,19 @@ class StatTracker
   
   def winningest_coach(season)
     games_coached = @game_teams.group_by { |game| game.head_coach}
+
+    games_coached_by_season = Hash.new(0)
+
+    games_coached.each { |coach, game_teams|
+      games_coached_by_season[coach] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
+    }
+
     coach_stats = {}
     winningest_coach = nil
-    games_coached.each do |coach, games|
+
+    games_coached_by_season.each do |coach, games|
       total_games = games.count
+      next if total_games <= 1
       wins = games.count { |game| game.result == "WIN" }
       win_percentage = (wins.to_f / total_games.to_f).round(2)
       coach_stats[coach] = win_percentage
@@ -201,16 +210,31 @@ class StatTracker
 
   def worst_coach(season)
     games_coached = @game_teams.group_by { |game| game.head_coach}
+
+    games_coached_by_season = Hash.new(0)
+
+    games_coached.each { |coach, game_teams|
+      games_coached_by_season[coach] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
+    }
+
     coach_stats = {}
     worst_coach = nil
-    games_coached.each do |coach, games|
+
+    games_coached_by_season.each do |coach, games|
       total_games = games.count
-      losses = games.count { |game| game.result == "WIN" }
-      loss_percentage = (losses.to_f / total_games.to_f).round(2)
-      coach_stats[coach] = loss_percentage
-      worst_coach = coach_stats.min_by { |coach, loss_percentage| loss_percentage }.first
+      next if total_games <= 1
+      wins = games.count { |game| game.result == "WIN" }
+      win_percentage = (wins.to_f / total_games.to_f).round(2)
+      coach_stats[coach] = win_percentage
+      worst_coach = coach_stats.min_by { |coach, win_percentage| win_percentage }.first
     end
     return worst_coach
+  end
+
+  def game_team_season(game_team)
+    game_team_id = game_team.game_id
+    corresponding_game = @games.find {|game| game.game_id == game_team_id}
+    return corresponding_game.season
   end
 
   def most_accurate_team(season)
