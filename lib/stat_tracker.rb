@@ -150,7 +150,7 @@ class StatTracker
   end
 
   def team_name(team_id)
-    team = @teams.find{|x| x.team_id.include?(team_id)}
+    team = @teams.find{|team| team.team_id == team_id.to_s}
     team.teamName
   end
 
