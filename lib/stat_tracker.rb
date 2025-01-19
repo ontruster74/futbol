@@ -97,8 +97,11 @@ class StatTracker
       team_games[away_id] += 1
     end
   
-    avg_scores = team_scores.transform_values { |goals| goals.to_f / team_games[team_scores.key(goals)] }
-  
+    avg_scores = {}
+    team_scores.each do |team_id, points|
+      avg_scores[team_id] = points.to_f / team_games[team_id]
+    end
+    
     highest_avg_score = avg_scores.values.max
     highest_scoring_team_id = avg_scores.key(highest_avg_score)
   
@@ -184,12 +187,20 @@ class StatTracker
     
   end
 
-  def most_accurate_team
-    
+  def most_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    max = season_games.max_by {|game| game.shots.to_f / game.goals}
+    team_name(max.team_id)
   end
 
-  def least_accurate_team
-    
+  def least_accurate_team(season)
+    season_id = []
+    @games.each{|game| season_id << game.game_id if game.season == season}
+    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
+    min = season_games.min_by {|game| game.shots.to_f / game.goals}
+    team_name(min.team_id)
   end
 
   def most_tackles(season)
