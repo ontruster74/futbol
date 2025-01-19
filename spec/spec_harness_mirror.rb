@@ -56,4 +56,14 @@ RSpec.describe StatTracker do
   it "#lowest_scoring_home_team" do
     expect(@stat_tracker.lowest_scoring_home_team).to eq "Utah Royals FC"
   end
+
+    it "#most_accurate_team" do
+    expect(@stat_tracker.most_accurate_team("20132014")).to eq "Real Salt Lake"
+    expect(@stat_tracker.most_accurate_team("20142015")).to eq "Toronto FC"
+  end
+
+  it "#least_accurate_team" do
+    expect(@stat_tracker.least_accurate_team("20132014")).to eq "New York City FC"
+    expect(@stat_tracker.least_accurate_team("20142015")).to eq "Columbus Crew SC"
+  end
 end

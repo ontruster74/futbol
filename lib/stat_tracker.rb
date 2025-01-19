@@ -191,7 +191,7 @@ class StatTracker
     season_id = []
     @games.each{|game| season_id << game.game_id if game.season == season}
     season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
-    max = season_games.max_by {|game| game.shots.to_f / game.goals}
+    max = season_games.min_by {|game| game.shots.to_f / game.goals}
     team_name(max.team_id)
   end
 
@@ -199,7 +199,7 @@ class StatTracker
     season_id = []
     @games.each{|game| season_id << game.game_id if game.season == season}
     season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
-    min = season_games.min_by {|game| game.shots.to_f / game.goals}
+    min = season_games.max_by {|game| game.shots.to_f / game.goals}
     team_name(min.team_id)
   end
 
@@ -242,5 +242,4 @@ class StatTracker
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
     fewest_tackles_team = @teams.find { |team| team.team_id == fewest_tackles_team_id }.teamName
   end
-
 end
