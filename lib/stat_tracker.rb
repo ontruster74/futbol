@@ -238,19 +238,44 @@ class StatTracker
   end
 
   def most_accurate_team(season)
-    season_id = []
-    @games.each{|game| season_id << game.game_id if game.season == season}
-    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
-    max = season_games.max_by {|game| game.shots.to_f / game.goals}
-    team_name(max.team_id)
+    games_played = @game_teams.group_by { |game| game.team_id}
+
+    games_played_by_season = Hash.new(0)
+
+    games_played.each { |team, game_teams|
+      games_played_by_season[team] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
+    }
+    team_percentage = {}
+    games_played_by_season.each do |team, games|
+      total_goals = games.sum {|game| game.goals}
+      total_shots = games.sum {|game| game.shots}
+      next if total_shots < 1
+      goals_to_shots = (total_goals.to_f / total_shots.to_f).round(2)
+      team_percentage[team] = goals_to_shots 
+    end
+    best_team = team_percentage.max_by { |team, goals_to_shots| goals_to_shots}.first
+    return team_name(best_team)
+    
   end
 
   def least_accurate_team(season)
-    season_id = []
-    @games.each{|game| season_id << game.game_id if game.season == season}
-    season_games = @game_teams.select {|game| season_id.include?(game.game_id) && game.goals > 0}
-    min = season_games.min_by {|game| game.shots.to_f / game.goals}
-    team_name(min.team_id)
+    games_played = @game_teams.group_by { |game| game.team_id}
+
+    games_played_by_season = Hash.new(0)
+
+    games_played.each { |team, game_teams|
+      games_played_by_season[team] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
+    }
+    team_percentage = {}
+    games_played_by_season.each do |team, games|
+      total_goals = games.sum {|game| game.goals}
+      total_shots = games.sum {|game| game.shots}
+      next if total_shots < 1
+      goals_to_shots = (total_goals.to_f / total_shots.to_f).round(3)
+      team_percentage[team] = goals_to_shots 
+    end
+    worst_team = team_percentage.min_by { |team, goals_to_shots| goals_to_shots}.first
+    return team_name(worst_team)
   end
 
   def most_tackles(season)
