@@ -198,6 +198,13 @@ describe StatTracker do
     end
   end
 
+  describe "#game_team_season" do
+    it "can return the season of a given GameTeam object" do
+      game_team = @stat_tracker.game_teams[0]
+      corresponding_game = @stat_tracker.games[0]
+      expect(@stat_tracker.game_team_season(game_team)).to eq(corresponding_game.season)
+    end
+  end
 
   describe "most and least accurate team" do
     it '#most_accurate_team' do

@@ -1,5 +1,3 @@
 source 'https://rubygems.org'
 
-gem 'rspec'
-gem 'pry'
-gem 'simplecov'
+gem 'simplecov',  require: false, group: :test
