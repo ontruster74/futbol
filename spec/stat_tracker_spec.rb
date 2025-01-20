@@ -184,6 +184,18 @@ describe StatTracker do
     end
   end
 
+  describe '#team_info' do 
+    it "returns a hash with a specific teams info" do 
+      expect(@stat_tracker.team_info("18")).to eq({
+        "team_id" => "18", 
+        "franchise_id" => "34", 
+        "team_name" => "Minnesota United FC", 
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      })
+    end
+  end
+  
   it "#best_season" do
     expect(@stat_tracker.best_season("6")).to eq("20132014")
   end
@@ -192,6 +204,24 @@ describe StatTracker do
     expect(@stat_tracker.worst_season("6")).to eq("20142015")
   end
 
+  describe '#average_win_percentage' do
+    it "retuns the average win percentage of all games for a team" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq(0.49)
+    end
+  end
+  
+  describe "#most_goals_scored" do
+    it "can find the most goals scored by a given team" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq(7)
+    end
+  end
+
+  describe "#fewest_goals_scored" do
+    it "can find the fewest goals scored by a given team" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
+    end
+  end
+  
   it "#favorite_opponent" do
     expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
   end
@@ -248,15 +278,4 @@ describe StatTracker do
     end
   end
 
-  describe "#most_goals_scored" do
-    it "can find the most goals scored by a given team" do
-      expect(@stat_tracker.most_goals_scored("18")).to eq(7)
-    end
-  end
-
-  describe "#fewest_goals_scored" do
-    it "can find the fewest goals scored by a given team" do
-      expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
-    end
-  end
 end
