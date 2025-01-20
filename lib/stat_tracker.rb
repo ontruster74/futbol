@@ -365,6 +365,19 @@ class StatTracker
     end
 
     max_goals
-    binding.pry
+  end
+
+  def fewest_goals_scored(team_id)
+    fewest_goals = 0
+
+    @games.each do |game|
+      if game.home_team_id == team_id
+        fewest_goals = game.home_goals if game.home_goals < fewest_goals
+      elsif game.away_team_id == team_id
+        fewest_goals = game.away_goals if game.away_goals < fewest_goals
+      end
+    end
+
+    fewest_goals
   end
 end
