@@ -380,4 +380,5 @@ class StatTracker
 
     fewest_goals
   end
+
 end
