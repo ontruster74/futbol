@@ -323,4 +323,44 @@ class StatTracker
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
     @teams.find { |team| team.team_id == fewest_tackles_team_id }.team_name
   end
+
+    # Team Statistics
+
+
+  def best_season(team_id)
+
+  end
+
+  def worst_season(team_id)
+
+  end
+
+  def most_goals_scored(team_id) 
+    max_goals = 0
+
+    @games.each do |game|
+      if game.home_team_id == team_id
+        max_goals = game.home_goals if game.home_goals > max_goals
+      elsif game.away_team_id == team_id
+        max_goals = game.away_goals if game.away_goals > max_goals
+      end
+    end
+
+    max_goals
+  end
+
+  def fewest_goals_scored(team_id)
+    fewest_goals = 0
+
+    @games.each do |game|
+      if game.home_team_id == team_id
+        fewest_goals = game.home_goals if game.home_goals < fewest_goals
+      elsif game.away_team_id == team_id
+        fewest_goals = game.away_goals if game.away_goals < fewest_goals
+      end
+    end
+
+    fewest_goals
+  end
+
 end

@@ -232,4 +232,15 @@ describe StatTracker do
     end
   end
 
+  describe "#most_goals_scored" do
+    it "can find the most goals scored by a given team" do
+      expect(@stat_tracker.most_goals_scored("18")).to eq(7)
+    end
+  end
+
+  describe "#fewest_goals_scored" do
+    it "can find the fewest goals scored by a given team" do
+      expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
+    end
+  end
 end
