@@ -1,5 +1,12 @@
 # runner.rb
-require './spec/spec_helper'
+require './lib/stat_tracker'
+require './lib/game'
+require './lib/team'
+require './lib/game_team'
+require './lib/game_factory'
+require './lib/team_factory'
+require './lib/game_team_factory'
+require 'csv'
 
 game_path = './data/games.csv'
 team_path = './data/teams.csv'
