@@ -219,6 +219,72 @@ class StatTracker
     return worst_season
   end
 
+  def favorite_opponent(team_id)
+    team_wins = Hash.new(0)
+    team_matches = Hash.new(0)
+    
+    @games.each do |game| 
+      if game.away_team_id == team_id
+
+        if game.away_goals > game.home_goals
+          team_wins[game.home_team_id] += 1
+        end
+
+        team_matches[game.home_team_id] += 1
+
+      elsif game.home_team_id == team_id
+
+        if game.home_goals > game.away_goals
+          team_wins[game.away_team_id] += 1
+        end
+
+        team_matches[game.away_team_id] += 1
+      end
+    end
+
+    team_win_percentages = Hash.new(0)
+
+    team_wins.each do |team, wins|
+      team_win_percentages[team] = (wins.to_f/team_matches[team].to_f).round(2)
+    end
+
+    return team_name(team_win_percentages.max_by {|team, win_percentage| win_percentage}.first)
+  end
+
+
+  def rival(team_id)
+    team_wins = Hash.new(0)
+    team_matches = Hash.new(0)
+    
+    @games.each do |game| 
+      if game.away_team_id == team_id
+
+        if game.away_goals > game.home_goals
+          team_wins[game.home_team_id] += 1
+        end
+
+        team_matches[game.home_team_id] += 1
+
+      elsif game.home_team_id == team_id
+
+        if game.home_goals > game.away_goals
+          team_wins[game.away_team_id] += 1
+        end
+
+        team_matches[game.away_team_id] += 1
+      end
+    end
+
+    team_win_percentages = Hash.new(0)
+
+    team_wins.each do |team, wins|
+      team_win_percentages[team] = (wins.to_f/team_matches[team].to_f).round(2)
+    end
+
+    return team_name(team_win_percentages.min_by {|team, win_percentage| win_percentage}.first)
+  end
+
+
   # Season Stats
   
   def winningest_coach(season)

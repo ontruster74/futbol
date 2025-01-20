@@ -185,11 +185,19 @@ describe StatTracker do
   end
 
   it "#best_season" do
-    expect(@stat_tracker.best_season("6")).to eq "20132014"
+    expect(@stat_tracker.best_season("6")).to eq("20132014")
   end
 
   it "#worst_season" do
-    expect(@stat_tracker.worst_season("6")).to eq "20142015"
+    expect(@stat_tracker.worst_season("6")).to eq("20142015")
+  end
+
+  it "#favorite_opponent" do
+    expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
+  end
+
+  it "#rival" do
+    expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
   end
 
   # Season 
