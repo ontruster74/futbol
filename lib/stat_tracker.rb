@@ -323,4 +323,35 @@ class StatTracker
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
     @teams.find { |team| team.team_id == fewest_tackles_team_id }.team_name
   end
+
+    # Team Statistics
+
+
+  def best_season(team_id)
+    season_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
+
+    @game_teams.each do |game|
+      next if game.team_id != team_id
+      season = game_team_season(game)
+      season_stats[season][:games] += 1
+      season_stats[season][:wins] += 1 if game.result == "WIN"
+    end
+    best_season = season_stats.max_by { |season, stats| stats[:wins].to_f / stats[:games] }.first
+    best_season
+  end
+
+  def worst_season(team_id)
+    season_stats = Hash.new { |hash, key| hash[key] = { wins: 0, games: 0 } }
+
+    @game_teams.each do |game|
+      next if game.team_id != team_id
+      season = game_team_season(game)
+      season_stats[season][:games] += 1
+      season_stats[season][:wins] += 1 if game.result == "WIN"
+    end
+    best_season = season_stats.max_by { |season, stats| stats[:wins].to_f / stats[:games] }.first
+    best_season
+  end
+
+
 end

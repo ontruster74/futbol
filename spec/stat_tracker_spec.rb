@@ -232,4 +232,9 @@ describe StatTracker do
     end
   end
 
+  describe "#best_season" do
+    it "can find the best season based on team id" do
+      expect(@stat_tracker.best_season("3")).to eq("")
+    end
+  end
 end
