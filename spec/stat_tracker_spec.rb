@@ -237,4 +237,9 @@ describe StatTracker do
       expect(@stat_tracker.best_season("3")).to eq("")
     end
   end
+
+  describe "#most_goals_scored" do
+    it "can find the most goals scored by a given team"
+      expect(@stat_tracker.most_goals_scored("3")).to eq("")
+  end
 end

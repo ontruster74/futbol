@@ -353,5 +353,18 @@ class StatTracker
     best_season
   end
 
+  def most_goals_scored(team_id) 
+    max_goals = 0
 
+    @games.each do |game|
+      if game.home_team_id == team_id
+        max_goals = game.home_goals if game.home_goals > max_goals
+      elsif game.away_team_id == team_id
+        max_goals = game.away_goals if game.away_goals > max_goals
+      end
+    end
+
+    max_goals
+    binding.pry
+  end
 end
