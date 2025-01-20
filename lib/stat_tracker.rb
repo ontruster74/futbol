@@ -5,6 +5,7 @@ require_relative './game_factory'
 require_relative './team_factory'
 require_relative './game_team_factory'
 require 'csv'
+require 'pry'
 
 class StatTracker
   attr_reader :games, :teams, :game_teams
@@ -184,16 +185,15 @@ class StatTracker
   end
 
   # Season Stats
-  
+
   def winningest_coach(season)
     games_coached = @game_teams.group_by { |game| game.head_coach}
 
     games_coached_by_season = Hash.new(0)
-
     games_coached.each { |coach, game_teams|
-      games_coached_by_season[coach] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
-    }
-
+    games_coached_by_season[coach] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
+  }
+  
     coach_stats = {}
     winningest_coach = nil
 
@@ -322,5 +322,26 @@ class StatTracker
     fewest_tackles = teams_hash.values.min
     fewest_tackles_team_id = teams_hash.key(fewest_tackles).to_s
     @teams.find { |team| team.team_id == fewest_tackles_team_id }.team_name
+  end
+
+  def average_win_percentage(team_id)
+   team_games = @game_teams.find_all {|game| game.team_id == team_id }
+   games_played = team_games.count
+   games_won = team_games.find_all { |game_team| game_team.result == "WIN" }.count
+   if !games_won 
+    games_won = 0
+   end
+   average_win_percentage = (games_won.to_f / games_played.to_f).round(2)
+  end
+
+  def team_info(team_id)
+    team_object = @teams.find { |team| team.team_id == team_id }
+    team_info = {
+      "team_id" => team_object.team_id, 
+      "franchise_id" => team_object.franchise_id, 
+      "team_name" => team_object.team_name, 
+      "abbreviation" => team_object.abbreviation, 
+      "link" => team_object.link
+    }
   end
 end

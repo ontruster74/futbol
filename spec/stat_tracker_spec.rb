@@ -232,4 +232,21 @@ describe StatTracker do
     end
   end
 
+  describe '#average_win_percentage' do
+    it "retuns the average win percentage of all games for a team" do
+      expect(@stat_tracker.average_win_percentage("6")).to eq(0.49)
+    end
+  end
+
+  describe '#team_info' do 
+    it "returns a hash with a specific teams info" do 
+      expect(@stat_tracker.team_info("18")).to eq({
+        "team_id" => "18", 
+        "franchise_id" => "34", 
+        "team_name" => "Minnesota United FC", 
+        "abbreviation" => "MIN",
+        "link" => "/api/v1/teams/18"
+      })
+    end
+  end
 end
