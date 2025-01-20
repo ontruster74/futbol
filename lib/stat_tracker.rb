@@ -193,6 +193,7 @@ class StatTracker
       "abbreviation" => team_object.abbreviation, 
       "link" => team_object.link
     }
+    return team_info
   end
   
   def best_season(team_id)
@@ -235,10 +236,9 @@ class StatTracker
    team_games = @game_teams.find_all {|game| game.team_id == team_id }
    games_played = team_games.count
    games_won = team_games.find_all { |game_team| game_team.result == "WIN" }.count
-   if !games_won 
-    games_won = 0
-   end
+   games_won = 0 if !games_won 
    average_win_percentage = (games_won.to_f / games_played.to_f).round(2)
+   return average_win_percentage
   end
   
   def most_goals_scored(team_id) 
@@ -341,6 +341,7 @@ class StatTracker
     games_coached = @game_teams.group_by { |game| game.head_coach}
 
     games_coached_by_season = Hash.new(0)
+    
     games_coached.each { |coach, game_teams|
     games_coached_by_season[coach] = game_teams.find_all {|game_team| game_team_season(game_team) == season} 
   }
@@ -476,6 +477,3 @@ class StatTracker
   end
 
 end
-  
-
-

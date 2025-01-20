@@ -56,31 +56,25 @@ describe StatTracker do
 
   # Game Statistics
 
-  describe '#highest_total_score' do
+  describe '#total_score' do
     it 'can return the highest total score' do
       expect(@stat_tracker.highest_total_score).to eq(11)
     end
-  end
-
-  describe '#lowest_total_score' do
+  
     it 'can return the lowest total score' do
       expect(@stat_tracker.lowest_total_score).to eq(0)
     end
   end
   
-  describe '#percentage_of_home_wins' do
+  describe '#percentages' do
     it 'can return the percentage of home wins' do
       expect(@stat_tracker.percentage_home_wins).to eq(0.44)
     end
-  end
-
-  describe '#percentage_of_visitor_wins' do 
+  
     it 'can return the percentage of visitor wins' do
       expect(@stat_tracker.percentage_visitor_wins).to eq(0.36)
     end
-  end
-
-  describe '#percentage_ties' do
+  
     it 'can return the percentage of ties' do
       expect(@stat_tracker.percentage_ties).to eq(0.20)
     end
@@ -100,13 +94,11 @@ describe StatTracker do
     end
   end
 
-  describe "#average_goals_per_game" do
+  describe "#average_goals" do
     it "can find the average goals per game as a float" do
       expect(@stat_tracker.average_goals_per_game).to eq(4.22)
     end 
-  end
-
-  describe "#average_goals_by_season" do
+ 
     it "can find the average goals by season" do
       expected = {
         "20122013"=>4.12,
@@ -128,13 +120,11 @@ describe StatTracker do
     end
   end
 
-  describe '#best_offense' do
+  describe '#offense' do
     it 'can find the team with the best offense' do
       expect(@stat_tracker.best_offense).to eq('Reign FC')
     end
-  end
-
-  describe '#worst_offense' do
+  
     it 'can find the team with the worst offense' do
       expect(@stat_tracker.worst_offense).to eq('Utah Royals FC')
     end
@@ -156,13 +146,11 @@ describe StatTracker do
     end
   end
 
-  describe "#highest_scoring_visitor" do
+  describe "#highest_scorers" do
     it "can find the name of the highest average scoring visitor" do
       expect(@stat_tracker.highest_scoring_visitor).to eq("FC Dallas")
     end
-  end
-
-  describe "#highest_scoring_home_team" do
+  
     it "can find the name of the highest average home team" do
       expect(@stat_tracker.highest_scoring_home_team).to eq("Reign FC")
     end
@@ -196,12 +184,15 @@ describe StatTracker do
     end
   end
   
-  it "#best_season" do
-    expect(@stat_tracker.best_season("6")).to eq("20132014")
-  end
 
-  it "#worst_season" do
-    expect(@stat_tracker.worst_season("6")).to eq("20142015")
+  describe '#best and worst seasons' do
+    it "can return the best season for a given team" do
+      expect(@stat_tracker.best_season("6")).to eq("20132014")
+    end
+
+    it "can return the worst season for a given team" do
+      expect(@stat_tracker.worst_season("6")).to eq("20142015")
+    end
   end
 
   describe '#average_win_percentage' do
@@ -210,26 +201,26 @@ describe StatTracker do
     end
   end
   
-  describe "#most_goals_scored" do
+  describe "#goals_scored" do
     it "can find the most goals scored by a given team" do
       expect(@stat_tracker.most_goals_scored("18")).to eq(7)
     end
-  end
-
-  describe "#fewest_goals_scored" do
+  
     it "can find the fewest goals scored by a given team" do
       expect(@stat_tracker.fewest_goals_scored("18")).to eq(0)
     end
   end
   
-  it "#favorite_opponent" do
-    expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
-  end
 
-  it "#rival" do
-    expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
-  end
+  describe '#rivalries' do
+    it "#favorite_opponent" do
+      expect(@stat_tracker.favorite_opponent("18")).to eq("DC United")
+    end
 
+    it "#rival" do
+      expect(@stat_tracker.rival("18")).to eq("Houston Dash").or(eq("LA Galaxy"))
+    end
+  end
   # Season 
 
   describe '#coach_stats' do 
@@ -252,7 +243,7 @@ describe StatTracker do
     end
   end
 
-  describe "most and least accurate team" do
+  describe "#team_accuracy" do
     it '#most_accurate_team' do
       expect(@stat_tracker.most_accurate_team("20132014")).to eq ("Real Salt Lake")
       expect(@stat_tracker.most_accurate_team("20142015")).to eq ("Toronto FC")
@@ -264,14 +255,12 @@ describe StatTracker do
     end
   end
     
-  describe '#most_tackles' do 
+  describe '#tackles' do 
     it 'can find the team with the most tackles for a given season' do
       expect(@stat_tracker.most_tackles('20132014')).to eq('FC Cincinnati')
       expect(@stat_tracker.most_tackles('20142015')).to eq('Seattle Sounders FC')
     end
-  end
-
-  describe '#fewest_tackles' do 
+  
     it 'can find the team with the fewest tackles for a given season' do
       expect(@stat_tracker.fewest_tackles('20132014')).to eq('Atlanta United')  
       expect(@stat_tracker.fewest_tackles('20142015')).to eq('Orlando City SC')  
